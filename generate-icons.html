@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Professional Icons - YouTube AutoComment Bot</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .icon-preview {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        .icon-box {
+            text-align: center;
+        }
+        canvas {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        .controls {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Professional Icon Generator</h1>
+        <h3 style="text-align: center; color: #666;">YouTube AutoComment Bot</h3>
+        
+        <div class="info">
+            <h3>📋 Icon Specifications</h3>
+            <ul>
+                <li><strong>Design:</strong> Modern, professional YouTube comment icon</li>
+                <li><strong>Colors:</strong> YouTube red (#FF0000) with white accents</li>
+                <li><strong>Style:</strong> Flat design with subtle gradients</li>
+                <li><strong>Sizes:</strong> 16x16, 48x48, 128x128 pixels</li>
+                <li><strong>Format:</strong> PNG with transparency</li>
+            </ul>
+        </div>
+
+        <div class="icon-preview">
+            <div class="icon-box">
+                <h3>16×16</h3>
+                <canvas id="icon16" width="16" height="16"></canvas>
+                <br><button onclick="downloadIcon('icon16', 'icon16.png')">Download 16×16</button>
+            </div>
+            <div class="icon-box">
+                <h3>48×48</h3>
+                <canvas id="icon48" width="48" height="48"></canvas>
+                <br><button onclick="downloadIcon('icon48', 'icon48.png')">Download 48×48</button>
+            </div>
+            <div class="icon-box">
+                <h3>128×128</h3>
+                <canvas id="icon128" width="128" height="128"></canvas>
+                <br><button onclick="downloadIcon('icon128', 'icon128.png')">Download 128×128</button>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button onclick="generateAllIcons()" style="font-size: 18px; padding: 20px 60px;">
+                🎨 Generate All Icons
+            </button>
+            <button onclick="downloadAll()" style="background: #28a745;">
+                📥 Download All (ZIP Ready)
+            </button>
+        </div>
+
+        <div class="success" id="successMsg">
+            ✅ Icons generated successfully! Right-click each icon and "Save image as..." to download.
+        </div>
+
+        <div class="info">
+            <h3>💡 Instructions</h3>
+            <ol>
+                <li>Click "Generate All Icons" to create the icons</li>
+                <li>Click individual download buttons OR right-click each canvas and "Save image as..."</li>
+                <li>Save all three files in your extension's <code>icons/</code> folder</li>
+                <li>Ensure filenames match: <code>icon16.png</code>, <code>icon48.png</code>, <code>icon128.png</code></li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        function drawIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            const scale = size / 128; // Scale based on 128px design
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, size, size);
+            
+            // Background - Rounded rectangle with gradient
+            const gradient = ctx.createLinearGradient(0, 0, 0, size);
+            gradient.addColorStop(0, '#FF0000');  // YouTube red
+            gradient.addColorStop(1, '#CC0000');  // Darker red
+            
+            ctx.fillStyle = gradient;
+            roundRect(ctx, 0, 0, size, size, size * 0.15);
+            ctx.fill();
+            
+            // Comment bubble (chat icon)
+            ctx.fillStyle = 'white';
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = size * 0.04;
+            
+            // Main bubble - rounded rectangle
+            const bubbleX = size * 0.2;
+            const bubbleY = size * 0.25;
+            const bubbleW = size * 0.6;
+            const bubbleH = size * 0.45;
+            const bubbleRadius = size * 0.08;
+            
+            ctx.beginPath();
+            roundRectPath(ctx, bubbleX, bubbleY, bubbleW, bubbleH, bubbleRadius);
+            ctx.fill();
+            
+            // Tail of speech bubble
+            ctx.beginPath();
+            ctx.moveTo(size * 0.35, size * 0.70);
+            ctx.lineTo(size * 0.25, size * 0.82);
+            ctx.lineTo(size * 0.42, size * 0.70);
+            ctx.closePath();
+            ctx.fill();
+            
+            // Three dots inside bubble
+            ctx.fillStyle = '#FF0000';
+            const dotRadius = size * 0.045;
+            const dotY = size * 0.47;
+            
+            // Left dot
+            ctx.beginPath();
+            ctx.arc(size * 0.35, dotY, dotRadius, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Middle dot
+            ctx.beginPath();
+            ctx.arc(size * 0.5, dotY, dotRadius, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Right dot
+            ctx.beginPath();
+            ctx.arc(size * 0.65, dotY, dotRadius, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Plus sign badge (automation indicator) - top right
+            if (size >= 48) {
+                const badgeSize = size * 0.28;
+                const badgeX = size * 0.7;
+                const badgeY = size * 0.08;
+                
+                // Badge circle
+                const badgeGradient = ctx.createLinearGradient(badgeX, badgeY, badgeX, badgeY + badgeSize);
+                badgeGradient.addColorStop(0, '#4CAF50');  // Green
+                badgeGradient.addColorStop(1, '#388E3C');  // Darker green
+                
+                ctx.fillStyle = badgeGradient;
+                ctx.beginPath();
+                ctx.arc(badgeX + badgeSize/2, badgeY + badgeSize/2, badgeSize/2, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Plus sign
+                ctx.fillStyle = 'white';
+                ctx.strokeStyle = 'white';
+                ctx.lineWidth = size * 0.025;
+                ctx.lineCap = 'round';
+                
+                const plusSize = badgeSize * 0.5;
+                const centerX = badgeX + badgeSize/2;
+                const centerY = badgeY + badgeSize/2;
+                
+                // Horizontal line
+                ctx.beginPath();
+                ctx.moveTo(centerX - plusSize/2, centerY);
+                ctx.lineTo(centerX + plusSize/2, centerY);
+                ctx.stroke();
+                
+                // Vertical line
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY - plusSize/2);
+                ctx.lineTo(centerX, centerY + plusSize/2);
+                ctx.stroke();
+            }
+        }
+        
+        function roundRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            roundRectPath(ctx, x, y, width, height, radius);
+            ctx.closePath();
+        }
+        
+        function roundRectPath(ctx, x, y, width, height, radius) {
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+        }
+        
+        function generateAllIcons() {
+            const sizes = [
+                { id: 'icon16', size: 16 },
+                { id: 'icon48', size: 48 },
+                { id: 'icon128', size: 128 }
+            ];
+            
+            sizes.forEach(item => {
+                const canvas = document.getElementById(item.id);
+                drawIcon(canvas, item.size);
+            });
+            
+            document.getElementById('successMsg').style.display = 'block';
+        }
+        
+        function downloadIcon(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
+        function downloadAll() {
+            setTimeout(() => downloadIcon('icon16', 'icon16.png'), 100);
+            setTimeout(() => downloadIcon('icon48', 'icon48.png'), 300);
+            setTimeout(() => downloadIcon('icon128', 'icon128.png'), 500);
+            alert('Downloading all icons... Check your downloads folder for 3 PNG files.');
+        }
+        
+        // Auto-generate on page load
+        window.onload = function() {
+            generateAllIcons();
+        };
+    </script>
+</body>
+</html>

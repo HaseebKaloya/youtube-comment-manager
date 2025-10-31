@@ -1,0 +1,95 @@
+{
+  "name": "youtube-comment-manager",
+  "version": "3.0.0",
+  "description": "YouTube Comment Manager - Professional engagement and productivity tool for content creators, marketers, social media managers. Streamline comment management, boost engagement, improve workflow efficiency.",
+  "author": {
+    "name": "Haseeb Kaloya",
+    "email": "haseebkaloya@gmail.com",
+    "url": "https://github.com/HaseebKaloya"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/HaseebKaloya/youtube-comment-manager",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HaseebKaloya/youtube-comment-manager.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HaseebKaloya/youtube-comment-manager/issues",
+    "email": "haseebkaloya@gmail.com"
+  },
+  "keywords": [
+    "youtube",
+    "youtube automation",
+    "auto comment",
+    "comment bot",
+    "bulk commenting",
+    "automated comments",
+    "youtube comments",
+    "comment poster",
+    "mass commenter",
+    "engagement tool",
+    "social media automation",
+    "youtube marketing",
+    "content creator",
+    "influencer tools",
+    "comment automation",
+    "browser extension",
+    "chrome extension",
+    "firefox addon",
+    "youtube bot",
+    "auto commenter",
+    "bulk comment poster",
+    "youtube engagement",
+    "social media marketing",
+    "comment scheduler",
+    "automated posting",
+    "youtube growth",
+    "engagement boost",
+    "comment manager",
+    "youtube tools"
+  ],
+  "scripts": {
+    "start": "web-ext run --source-dir . --verbose",
+    "start:firefox": "web-ext run --source-dir . --target firefox-desktop --verbose",
+    "start:chrome": "web-ext run --source-dir . --target chromium --verbose",
+    "build": "web-ext build --source-dir . --overwrite-dest --artifacts-dir dist",
+    "lint": "web-ext lint --source-dir .",
+    "sign": "web-ext sign --source-dir . --api-key=$AMO_JWT_ISSUER --api-secret=$AMO_JWT_SECRET",
+    "package": "npm run build && echo Extension packaged successfully!",
+    "test": "web-ext lint --source-dir ."
+  },
+  "devDependencies": {
+    "web-ext": "^7.12.0"
+  },
+  "webExt": {
+    "sourceDir": ".",
+    "artifactsDir": "dist",
+    "ignoreFiles": [
+      "node_modules",
+      "dist",
+      "package.json",
+      "package-lock.json",
+      ".git",
+      ".gitignore",
+      "*.md",
+      "!README.md",
+      "create-icons.html",
+      "FIXES-APPLIED.md",
+      "QUICKSTART.md",
+      "INSTALLATION.md"
+    ],
+    "build": {
+      "overwriteDest": true
+    },
+    "run": {
+      "startUrl": ["https://www.youtube.com/watch?v=dQw4w9WgXcQ"],
+      "pref": {
+        "extensions.checkCompatibility": false
+      }
+    }
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  }
+}

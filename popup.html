@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Comment Manager - Engagement Tool</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>▶️ YouTube Comment Manager</h1>
+      <p class="subtitle">Professional Engagement & Productivity Tool | By HaseebKaloya</p>
+    </div>
+
+    <!-- Background task indicator -->
+    <div id="backgroundIndicator" class="background-indicator hidden">
+      <span class="pulse-dot"></span>
+      Task running in background
+    </div>
+
+    <!-- Statistics Panel -->
+    <div id="statsPanel" class="stats-panel hidden">
+      <div class="stat-item">
+        <div class="stat-icon success">✓</div>
+        <div class="stat-info">
+          <div class="stat-value" id="statSuccess">0</div>
+          <div class="stat-label">Success</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon failed">✗</div>
+        <div class="stat-info">
+          <div class="stat-value" id="statFailed">0</div>
+          <div class="stat-label">Failed</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon retry">⟳</div>
+        <div class="stat-info">
+          <div class="stat-value" id="statRetries">0</div>
+          <div class="stat-label">Retries</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon speed">⚡</div>
+        <div class="stat-info">
+          <div class="stat-value" id="statSpeed">--</div>
+          <div class="stat-label">Speed</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Progress Info -->
+    <div id="progressInfo" class="progress-info hidden">
+      <div class="progress-text">
+        <span id="progressCurrent">0</span> / <span id="progressTotal">0</span> comments
+      </div>
+      <div class="progress-time">
+        <span id="timeElapsed">00:00</span> elapsed • <span id="timeRemaining">--:--</span> remaining
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="form-group">
+        <label for="videoUrl">YouTube Video URL</label>
+        <input 
+          type="text" 
+          id="videoUrl" 
+          placeholder="https://www.youtube.com/watch?v=..." 
+          class="input-field"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="comments">Comments (one per line)</label>
+        <textarea 
+          id="comments" 
+          rows="8" 
+          placeholder="Enter your comments here...&#10;Each line will be a separate comment&#10;Great video!&#10;Thanks for sharing!"
+          class="textarea-field"
+        ></textarea>
+        <div class="comment-count">
+          <span id="commentCount">0</span> comments ready
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="delay">Delay between comments (seconds)</label>
+        <input 
+          type="number" 
+          id="delay" 
+          value="5" 
+          min="2" 
+          max="60"
+          class="input-field"
+        >
+        <div class="checkbox-group">
+          <input type="checkbox" id="randomizeDelay" checked>
+          <label for="randomizeDelay" class="checkbox-label">Add random variation (±2 seconds)</label>
+        </div>
+        <small class="help-text">Recommended: 5-10 seconds to avoid detection</small>
+      </div>
+
+      <div class="actions">
+        <button id="startBtn" class="btn btn-primary">
+          <span class="btn-icon">▶</span>
+          Start Commenting
+        </button>
+        <button id="stopBtn" class="btn btn-secondary" disabled>
+          <span class="btn-icon">⏸</span>
+          Stop
+        </button>
+      </div>
+
+      <div id="status" class="status-box hidden">
+        <div class="status-content">
+          <span class="status-icon">ℹ️</span>
+          <span id="statusText">Ready to start</span>
+        </div>
+        <div class="progress-bar">
+          <div id="progressBar" class="progress-fill"></div>
+        </div>
+      </div>
+
+      <!-- Enhanced Log Panel -->
+      <div id="log" class="log-box hidden">
+        <div class="log-header">
+          <span>📋 Activity Log</span>
+          <div class="log-controls">
+            <button id="filterAll" class="log-filter active" data-filter="all">All</button>
+            <button id="filterSuccess" class="log-filter" data-filter="success">✓</button>
+            <button id="filterError" class="log-filter" data-filter="error">✗</button>
+            <button id="filterInfo" class="log-filter" data-filter="info">ℹ</button>
+            <button id="exportLog" class="export-log-btn" title="Export log">💾</button>
+            <button id="clearLog" class="clear-log-btn" title="Clear log">🗑️</button>
+          </div>
+        </div>
+        <div id="logContent" class="log-content"></div>
+        <div class="log-footer">
+          <span id="logCount">0 entries</span>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div id="quickActions" class="quick-actions hidden">
+        <button id="pauseBtn" class="quick-action-btn" title="Pause commenting">
+          <span class="action-icon">⏸</span>
+          <span class="action-label">Pause</span>
+        </button>
+        <button id="resumeBtn" class="quick-action-btn hidden" title="Resume commenting">
+          <span class="action-icon">▶</span>
+          <span class="action-label">Resume</span>
+        </button>
+        <button id="skipBtn" class="quick-action-btn" title="Skip current comment">
+          <span class="action-icon">⏭</span>
+          <span class="action-label">Skip</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>⚠️ Use responsibly. Respect YouTube's terms of service.</p>
+      <p class="author-credit">Developed by <strong>HaseebKaloya</strong> | v3.0.0 | Firefox & Chrome Optimized</p>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

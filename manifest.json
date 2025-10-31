@@ -1,0 +1,51 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Comment Manager - Engagement & Productivity Tool",
+  "short_name": "YT Comments+",
+  "version": "3.0.0",
+  "description": "Professional YouTube comment management tool for content creators, marketers & social media managers. Streamline engagement, manage multiple comments, boost productivity with smart posting features.",
+  "author": "Haseeb Kaloya",
+  "homepage_url": "https://github.com/HaseebKaloya/youtube-comment-manager",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://www.youtube.com/*",
+    "https://*.youtube.com/*",
+    "https://youtu.be/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "YouTube Comment Manager - Engagement Tool",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "browser_style": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*", "https://*.youtube.com/*", "https://youtu.be/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "youtube-comment-manager@haseebaloya.com",
+      "strict_min_version": "109.0"
+    }
+  }
+}

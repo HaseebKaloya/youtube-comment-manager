@@ -115,7 +115,7 @@ This release represents a complete overhaul of the extension with professional U
 
 ---
 
-## [2.0.0] - 2024 (Previous Version)
+## [2.0.0] - 2025-8-17 (Previous Version)
 
 ### Added
 - Basic automated commenting
@@ -131,7 +131,7 @@ This release represents a complete overhaul of the extension with professional U
 
 ---
 
-## [1.0.0] - 2023 (Initial Release)
+## [1.0.0] - 2025-4-9 (Initial Release)
 
 ### Added
 - Initial release

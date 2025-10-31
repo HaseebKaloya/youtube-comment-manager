@@ -8,7 +8,6 @@
 [![Chrome](https://img.shields.io/badge/Chrome-Latest-red.svg)](https://www.google.com/chrome/)
 
 YouTube Comment Manager - Professional browser extension to automate and manage YouTube comments efficiently. Features include smart posting delays, real-time statistics dashboard, activity logging, time tracking, and beautiful modern interface. Perfect for content creators, marketers, and social media professionals. 
-
 ![YouTube Comment Manager](https://github.com/HaseebKaloya/youtube-comment-manager)
 
 ---
